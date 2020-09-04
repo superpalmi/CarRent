@@ -1,4 +1,6 @@
 package com.palmieri.demo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -19,11 +21,10 @@ public class Reservation implements Serializable {
     @Temporal(TemporalType.DATE)
 
     private Date dataFine;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "user", nullable = false)
     private User user;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "vehicle", nullable = false)
     private Vehicle vehicle;

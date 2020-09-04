@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,9 +51,9 @@ public class ReservationController {
         Vehicle vehicle=vehicleService.readById(id);
         Reservation reservation = new Reservation();
         reservation.setVehicle(vehicle);
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user =  userService.readByUsername(username);
-        reservation.setUser(user);
+        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        //User user =  userService.readByUsername(username);
+        //reservation.setUser(user);
 
 
 
@@ -117,9 +117,9 @@ public class ReservationController {
         }
         Vehicle vehicle=vehicleService.readById(id);
         res.setVehicle(vehicle);
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user =  userService.readByUsername(username);
-        res.setUser(user);
+       // String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        //User user =  userService.readByUsername(username);
+        //res.setUser(user);
 
 
 

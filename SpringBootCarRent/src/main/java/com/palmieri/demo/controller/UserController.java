@@ -1,14 +1,22 @@
 package com.palmieri.demo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.palmieri.demo.entities.User;
+import com.palmieri.demo.exception.BindingException;
+import com.palmieri.demo.exception.DuplicateException;
+import com.palmieri.demo.exception.NotFoundException;
 import com.palmieri.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +42,10 @@ public class UserController
     //da utilizzare tramite le lambda
     List<User> MainRecordSet;
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private ResourceBundleMessageSource error;
+
+    /*@Autowired
+    private BCryptPasswordEncoder passwordEncoder;*/
 
     private void GetAllUsers(){
         MainRecordSet=userService.readAll();
@@ -56,34 +67,16 @@ public class UserController
     //user/insert
 
 
-    @RequestMapping(value={"/insert", "/update/{id}"}, method = RequestMethod.POST) //sia creazione che update
-    public String insertUser(@ModelAttribute(value = "action") String action,@Valid @ModelAttribute(value = "newUser") User user, BindingResult result, Model model ){
+    @PostMapping(value="/insert")
+    public ResponseEntity<User> insertUser(@Valid @RequestBody User user, BindingResult result) throws BindingException, DuplicateException {
+        logger.info("Salvo user "+ user);
         if(result.hasErrors()){
-            model.addAttribute("user", user);
-            if(user.getId()!=0){
-                model.addAttribute("action", "update");
-            }
-            return "insertUser";
+            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
+            logger.warn(msg);
+            throw new BindingException(msg);
         }
-        if(user.getId()==0){
-
-            if(userService.exists(user)){
-                model.addAttribute("message", "username o email non disponibili");
-                model.addAttribute("user", user);
-                return "insertUser";
-            }
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-
-        userService.saveOrUpdate(user);
-
-
-
-
-
-
-        model.addAttribute("user", user);
-        return "userDetail";
+        userService.create(user);
+        return new ResponseEntity<User>(new HttpHeaders(), HttpStatus.CREATED);
 
     }
 
@@ -92,14 +85,16 @@ public class UserController
 
 
     @RequestMapping(value="/detail/{userName}", produces = "application/json")
-    public ResponseEntity<User> getUserByUsername(@PathVariable("userName") String userName){
+    public ResponseEntity<User> getUserByUsername(@PathVariable("userName") String userName) throws
+            NotFoundException {
         logger.warn(userName);
         //String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = (User) userService.readByUsername(userName);
         if(user==null){
             String error="L'username: " + userName + "non è stato trovato";
             logger.warn(error);
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException(error);
+            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }else{
             return new ResponseEntity<User>(user, HttpStatus.OK);
 
@@ -113,44 +108,27 @@ public class UserController
 
 
     }
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") int id, Model model, HttpServletRequest request){
-
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") int id) throws NotFoundException {
+        logger.info("elimino l'articolo con codice" + id);
         User user = userService.readById(id);
+        if(user==null){
+            String msg="articolo "+ id + "non presente in anagrafica";
+            logger.warn(msg);
+            throw new NotFoundException(msg);
+        }
         userService.delete(user);
-        return "redirect:/user/readall/";
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode responseNode = mapper.createObjectNode();
+        responseNode.put("code", HttpStatus.OK.toString());
+        responseNode.put("message", "Eliminazione Utente "+ id + " eseguita con successo");
+        return new ResponseEntity<>(responseNode, new HttpHeaders(), HttpStatus.OK);
 
 
 
 
 
 
-    }
-    @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
-    public String getUpdateUser(@PathVariable("id") int id, Model model, HttpServletRequest request){
-        User user = userService.readById(id);
-
-        model.addAttribute("Titolo", "Aggiorna Utente");
-        //databinding
-        model.addAttribute("action", "update");
-        model.addAttribute("newUser", user);
-        return "insertUser";
-
-
-
-    }
-    @ExceptionHandler(com.palmieri.demo.exception.NoItemFoundException.class)
-    public ModelAndView handleError(HttpServletRequest request, com.palmieri.demo.exception.NoItemFoundException exception)
-    {
-        ModelAndView mav = new ModelAndView();
-
-        mav.addObject("id", exception.getId());
-        mav.addObject("exception", exception);
-        mav.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
-
-        mav.setViewName("noitemfound");
-
-        return mav;
     }
     /*
     @RequestMapping(value="/update/{id}", method=RequestMethod.POST)

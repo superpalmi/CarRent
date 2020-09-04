@@ -1,5 +1,6 @@
 package com.palmieri.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palmieri.demo.validation.UniquePlate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -35,7 +36,7 @@ public class Vehicle implements Serializable {
     @NotEmpty(message = "il campo non può essere vuoto")
     @Column(name="type")
     private String type;
-
+    @JsonIgnore
     @OneToMany (mappedBy = "vehicle", cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Reservation> reservations = new HashSet<Reservation>();

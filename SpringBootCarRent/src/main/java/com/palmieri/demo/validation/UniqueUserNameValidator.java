@@ -1,6 +1,5 @@
 package com.palmieri.demo.validation;
 
-import com.palmieri.demo.service.CustomUserDetailsService;
 import com.palmieri.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

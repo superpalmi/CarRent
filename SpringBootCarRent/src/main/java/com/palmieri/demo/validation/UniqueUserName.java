@@ -2,9 +2,6 @@ package com.palmieri.demo.validation;
 
 
 
-import com.palmieri.demo.service.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
