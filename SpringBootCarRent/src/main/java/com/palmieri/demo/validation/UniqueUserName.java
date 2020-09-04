@@ -1,0 +1,31 @@
+package com.palmieri.demo.validation;
+
+
+
+import com.palmieri.demo.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
+@Constraint(validatedBy = UniqueUserNameValidator.class)
+@Retention(RUNTIME)
+@Target({ FIELD, METHOD })
+public @interface UniqueUserName {
+
+
+
+    public String message() default "There is already user with this username!";
+
+    public Class<?>[] groups() default {};
+
+    public Class<? extends Payload>[] payload() default{};
+
+}

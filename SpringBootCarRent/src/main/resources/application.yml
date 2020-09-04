@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+    datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/springcarrent?zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&amp&serverTimezone=Europe/Amsterdam&amp&useSSL=FALSE
+      username: user
+      password: si2001
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+      database: MYSQL
+      show-sql: true
+      generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      generate_statistics: true
+      c3p0.min_size: 5
+      c3p0.max_size: 20
+      c3p0.acquire_increment: 1
+      c3p0.timeout: 1000
+      c3p0.max_statements: 150
+    properties:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
