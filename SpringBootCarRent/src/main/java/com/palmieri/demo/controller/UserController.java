@@ -51,17 +51,12 @@ public class UserController
         MainRecordSet=userService.readAll();
 
     }
-    @GetMapping
-    public String getUsers(Model model){
+    @GetMapping(value ="/showall",produces = "application/json")
+    public ResponseEntity<List<User>> getUsers(Model model){
         logger.info("ottenendo tutti gli user");
-        List<Object> recordset;
-        long NumRecords=0;
-        GetAllUsers();
-        if(MainRecordSet!=null){
-           recordset=MainRecordSet.stream().collect(Collectors.toList());
 
-        }
-        return null;
+        List<User> users= userService.readAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
     //user/insert
