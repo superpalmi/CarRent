@@ -1,4 +1,5 @@
 package com.palmieri.demo.entities;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     @Column(name="datainizio", nullable = false)
     @Temporal(TemporalType.DATE)
 
@@ -21,13 +24,15 @@ public class Reservation implements Serializable {
     @Temporal(TemporalType.DATE)
 
     private Date dataFine;
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "user", nullable = false)
-    private User user;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "vehicle", nullable = false)
     private Vehicle vehicle;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name= "user", nullable = false)
+    private User user;
+
+
 
     public int getId() {
         return id;

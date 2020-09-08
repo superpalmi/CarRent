@@ -1,5 +1,6 @@
 package com.palmieri.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palmieri.demo.validation.UniqueEmail;
 import com.palmieri.demo.validation.UniqueUserName;
 import org.hibernate.annotations.LazyCollection;
@@ -47,9 +48,6 @@ public class User implements Serializable {
     @NotEmpty(message ="il campo role non può essere vuoto")
     @Column(name="role", nullable = true)
     private String role;
-
-
-
 
     @OneToMany (mappedBy = "user", cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)

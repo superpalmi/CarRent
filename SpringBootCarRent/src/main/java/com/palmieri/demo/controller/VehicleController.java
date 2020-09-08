@@ -61,7 +61,7 @@ public class VehicleController {
     //aggiungere filtri in base alle date inserite
 
     @GetMapping(value ="/showall",produces = "application/json")
-    public ResponseEntity<List<Vehicle>> getUsers(Model model){
+    public ResponseEntity<List<Vehicle>> getVehicles(Model model){
         logger.info("ottenendo tutti gli user");
 
         List<Vehicle> vehicles= vehicleService.readAll();
