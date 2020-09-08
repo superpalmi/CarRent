@@ -1,12 +1,23 @@
 package com.palmieri.demo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.palmieri.demo.entities.Reservation;
+import com.palmieri.demo.entities.User;
 import com.palmieri.demo.entities.Vehicle;
+import com.palmieri.demo.exception.BindingException;
+import com.palmieri.demo.exception.DuplicateException;
+import com.palmieri.demo.exception.NotFoundException;
 import com.palmieri.demo.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,12 +43,14 @@ public class VehicleController {
     private static final Logger logger = LoggerFactory.getLogger(VehicleController.class);
     @Autowired
     private VehicleService vehicleService;
+    @Autowired
+    private ResourceBundleMessageSource error;
 
 
 
 
 
-    List<Vehicle> MainRecordSet;
+
 
     @InitBinder
     public void bindingPreparation(WebDataBinder binder) {
@@ -47,45 +60,63 @@ public class VehicleController {
     }
     //aggiungere filtri in base alle date inserite
 
-    private void GetAllVehicles(){
+    @GetMapping(value ="/showall",produces = "application/json")
+    public ResponseEntity<List<Vehicle>> getUsers(Model model){
+        logger.info("ottenendo tutti gli user");
 
-        MainRecordSet=vehicleService.readAll();
+        List<Vehicle> vehicles= vehicleService.readAll();
+        return new ResponseEntity<>(vehicles, HttpStatus.OK);
 
     }
 
 
-    @RequestMapping(value="/insert", method = RequestMethod.GET)
-    public String getInsertVehicle(Model model){
-        Vehicle vehicle=new Vehicle();
-        model.addAttribute("Titolo", "Inserisci il Veicolo");
-        model.addAttribute("newVehicle", vehicle);
-        return "insertVehicle";
-    }
-
-    @RequestMapping(value={"/insert","/update/{id}"}, method=RequestMethod.POST)
-    public String insertVehicle( @Valid @ModelAttribute("newVehicle") Vehicle vehicle, BindingResult result, Model model){
+    @RequestMapping(value="/insert")
+    public ResponseEntity<Vehicle> insertVehicle(@Valid @RequestBody Vehicle vehicle, BindingResult result) throws BindingException, DuplicateException {
         if(result.hasErrors()){
-            model.addAttribute("vehicle", vehicle);
-            if(vehicle.getId()!=0){
-                model.addAttribute("action", "update");
-            }
-            return "insertVehicle";
+            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
+            logger.warn(msg);
+            throw new BindingException(msg);
         }
-        if(vehicle.getId()==0){
-            if(vehicleService.exists(vehicle)){
-                model.addAttribute("message", "la targa è già stata usata");
-                model.addAttribute("vehicle", vehicle);
-                return "insertVehicle";
-
-            }
-        }
-
-        vehicleService.saveOrUpdate(vehicle);
-        List<Vehicle> vehicles=vehicleService.readAll();
-        model.addAttribute("vehicles", vehicles);
-        return "vehicleReadAll";
+        vehicleService.create(vehicle);
+        return new ResponseEntity<Vehicle>(new HttpHeaders(), HttpStatus.CREATED);
 
     }
+    @RequestMapping(value="/detail/{id}", produces = "application/json")
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") int id) throws
+            NotFoundException {
+        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Vehicle vehicle = (Vehicle) vehicleService.readById(id);
+        if(vehicle==null){
+            String error="L'username: " + id + "non è stato trovato";
+            logger.warn(error);
+            throw new NotFoundException(error);
+            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<Vehicle>(vehicle, HttpStatus.OK);
+
+        }
+
+    }
+
+    @RequestMapping(value="/detail/{plate}", produces = "application/json")
+    public ResponseEntity<Vehicle> getVehicleByPlate(@PathVariable("plate") String plate) throws
+            NotFoundException {
+        logger.warn(plate);
+        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Vehicle vehicle = (Vehicle) vehicleService.readByPlate(plate);
+        if(vehicle==null){
+            String error="L'username: " + plate + "non è stato trovato";
+            logger.warn(error);
+            throw new NotFoundException(error);
+            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<Vehicle>(vehicle, HttpStatus.OK);
+
+        }
+
+    }
+
+
     /*
     @RequestMapping(value="/update/{id}", method=RequestMethod.POST)
     public String updateVehicle(@PathVariable("id") int id, @Valid @ModelAttribute("newVehicle") Vehicle vehicle,BindingResult result, Model model){
@@ -101,80 +132,29 @@ public class VehicleController {
 
     }*/
 
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-    public String deleteVehicle(@PathVariable("id") int id, Model model, HttpServletRequest request){
-
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<?> deleteVehicle(@PathVariable("id") int id) throws NotFoundException {
+        logger.info("elimino il veicolo con id" + id);
         Vehicle vehicle = vehicleService.readById(id);
-        vehicleService.delete(vehicle);
-        List<Vehicle> vehicles = vehicleService.readAll();
-        model.addAttribute("vehicles", vehicles);
-        return "vehicleReadAll";
-
-
-    }
-
-    @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
-    public String getUpdateVehicle(@PathVariable("id") int id, Model model, HttpServletRequest request){
-        Vehicle vehicle = vehicleService.readById(id);
-
-        model.addAttribute("Titolo", "Aggiorna Veicolo");
-        //databinding
-        model.addAttribute("action", "update");
-        model.addAttribute("newVehicle", vehicle);
-        return "insertVehicle";
-
-
-
-    }
-
-
-
-
-    @RequestMapping(value="/detail/{id}", method=RequestMethod.GET)
-    public String getVehicleById(@PathVariable("id") int id, Model model, HttpServletRequest request){
-        Vehicle vehicle=null;
-        vehicle=vehicleService.readById(id);
-        model.addAttribute("Titolo", "Veicolo Inserito");
-        model.addAttribute("vehicle", vehicle);
-
-        return "vehicleDetail";
-
-
-
-
-    }
-    @RequestMapping(value="/readall/", method = RequestMethod.GET)
-    public String readAll(Model model){
-        List<Vehicle> vehicles=vehicleService.readAll();
-        model.addAttribute("vehicles", vehicles);
-        return "vehicleReadAll";
-
-    }
-    @RequestMapping(value="/filter/", method = RequestMethod.GET)
-    public String getVehicleFilter(Model model){
-        model.addAttribute("Titolo", "Inserisci le date");
-        Reservation res= new Reservation();
-        model.addAttribute("newReservation", res);
-        return "vehicleFilter";
-
-
-
-    }
-    @RequestMapping(value="/filter/", method = RequestMethod.POST)
-    public String vehicleFilter(@ModelAttribute("newReservation") Reservation res, BindingResult result, Model model){
-
-        Set<Vehicle> vehicles=vehicleService.readByDate(res.getDataInizio(), res.getDataFine());
-        model.addAttribute("Titolo", "Inserisci le date");
-        model.addAttribute("newReservation", res);
-        if(vehicles!=null){
-            model.addAttribute("vehicles", vehicles);
-        }else{
-            model.addAttribute("message", "non ci sono veicoli disponibili nelle date selezionate");
+        if(vehicle==null){
+            String msg="articolo "+ id + "non presente in anagrafica";
+            logger.warn(msg);
+            throw new NotFoundException(msg);
         }
+        vehicleService.delete(vehicle);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode responseNode = mapper.createObjectNode();
+        responseNode.put("code", HttpStatus.OK.toString());
+        responseNode.put("message", "Eliminazione Veicolo "+ id + " eseguita con successo");
+        return new ResponseEntity<>(responseNode, new HttpHeaders(), HttpStatus.OK);
 
-        return "vehicleFilter";
+
+
+
+
 
     }
+
 
 
 

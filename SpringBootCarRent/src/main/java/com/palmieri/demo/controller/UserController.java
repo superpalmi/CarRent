@@ -40,19 +40,14 @@ public class UserController
     @Autowired
     private UserService userService;
     //da utilizzare tramite le lambda
-    List<User> MainRecordSet;
     @Autowired
     private ResourceBundleMessageSource error;
 
     /*@Autowired
     private BCryptPasswordEncoder passwordEncoder;*/
 
-    private void GetAllUsers(){
-        MainRecordSet=userService.readAll();
-
-    }
     @GetMapping(value ="/showall",produces = "application/json")
-    public ResponseEntity<List<User>> getUsers(Model model){
+    public ResponseEntity<List<User>> getUsers(){
         logger.info("ottenendo tutti gli user");
 
         List<User> users= userService.readAll();
@@ -79,14 +74,14 @@ public class UserController
 
 
 
-    @RequestMapping(value="/detail/{userName}", produces = "application/json")
-    public ResponseEntity<User> getUserByUsername(@PathVariable("userName") String userName) throws
+    @RequestMapping(value="/detail/{id}", produces = "application/json")
+    public ResponseEntity<User> getUserById(@PathVariable("id") int id) throws
             NotFoundException {
-        logger.warn(userName);
+
         //String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = (User) userService.readByUsername(userName);
+        User user = (User) userService.readById(id);
         if(user==null){
-            String error="L'username: " + userName + "non è stato trovato";
+            String error="L'username: " + id + "non è stato trovato";
             logger.warn(error);
             throw new NotFoundException(error);
             //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
@@ -95,17 +90,10 @@ public class UserController
 
         }
 
-
-
-
-
-
-
-
     }
     @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<?> deleteUser(@PathVariable("id") int id) throws NotFoundException {
-        logger.info("elimino l'articolo con codice" + id);
+        logger.info("elimino il veicolo con id" + id);
         User user = userService.readById(id);
         if(user==null){
             String msg="articolo "+ id + "non presente in anagrafica";
@@ -125,36 +113,6 @@ public class UserController
 
 
     }
-    /*
-    @RequestMapping(value="/update/{id}", method=RequestMethod.POST)
-    public String updateUser(@ModelAttribute("newUser") User user,BindingResult result, Model model, HttpServletRequest request){
-        if(result.hasErrors()){
-            return "insertUser";
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        userService.update(user);
-        model.addAttribute("user", user);
-        return "userDetail";
-
-    }*/
-
-
-    @RequestMapping(value="/readall/", method=RequestMethod.GET)
-    public String readAll(Model model){
-        List<User> users=userService.readAll();
-        model.addAttribute("users", users);
-        return "userReadAll";
-
-
-
-
-    }
-
-
-
-
-
 
 
 

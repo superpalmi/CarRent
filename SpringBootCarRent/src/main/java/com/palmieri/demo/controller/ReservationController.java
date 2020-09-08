@@ -1,8 +1,12 @@
 package com.palmieri.demo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.palmieri.demo.entities.Reservation;
 import com.palmieri.demo.entities.User;
 import com.palmieri.demo.entities.Vehicle;
+import com.palmieri.demo.exception.BindingException;
+import com.palmieri.demo.exception.NotFoundException;
 import com.palmieri.demo.service.ReservationService;
 import com.palmieri.demo.service.UserService;
 import com.palmieri.demo.service.VehicleService;
@@ -11,6 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,8 +45,9 @@ public class ReservationController {
     private VehicleService vehicleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ResourceBundleMessageSource error;
 
-    List<Reservation> MainRecordSet;
 
     @InitBinder
     public void bindingPreparation(WebDataBinder binder) {
@@ -45,119 +55,64 @@ public class ReservationController {
         CustomDateEditor orderDateEditor = new CustomDateEditor(dateFormat, true);
         binder.registerCustomEditor(Date.class, orderDateEditor);
     }
+    @GetMapping(value ="/showall",produces = "application/json")
+    public ResponseEntity<List<Reservation>> getReservations(){
+        logger.info("ottenendo tutte le reservations");
 
-    @RequestMapping(value="/insert/{id}", method= RequestMethod.GET)
-    public String getInsertReservation(@PathVariable("id") int id, Model model){
-        Vehicle vehicle=vehicleService.readById(id);
-        Reservation reservation = new Reservation();
-        reservation.setVehicle(vehicle);
-        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        //User user =  userService.readByUsername(username);
-        //reservation.setUser(user);
+        List<Reservation> reservations= reservationService.readAll();
+        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
 
+    }
 
 
 
-        model.addAttribute("Titolo", "Prenota il veicolo");
-        model.addAttribute("newReservation", reservation);
-
-
-
-
-        return "insertReservation";
-
-
+    @PostMapping(value="/insert")
+    public ResponseEntity<Reservation> insertReservation(@Valid @RequestBody Reservation reservation, BindingResult result) throws BindingException {
+        logger.info("Salvo reservation "+ reservation);
+        if(result.hasErrors()){
+            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
+            logger.warn(msg);
+            throw new BindingException(msg);
+        }
+        reservationService.create(reservation);
+        return new ResponseEntity<Reservation>(new HttpHeaders(), HttpStatus.CREATED);
 
 
     }
-    @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
-    public String getUpdateReservation(@PathVariable("id") int id, Model model){
+
+
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<?> deleteReservation(@PathVariable("id") int id, Model model, HttpServletRequest request) throws NotFoundException {
         Reservation res = reservationService.readById(id);
-        model.addAttribute("Titolo", "Modifica la Prenotazione");
-        model.addAttribute("newReservation", res);
-        return "insertReservation";
-
-
-    }
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
-    public String updateReservation(@PathVariable("id") int id, @Valid @ModelAttribute("newReservation") Reservation res, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "insertReservation";
+        if(res==null){
+            String msg = "articolo non presente";
+            logger.warn(msg);
+            throw new NotFoundException();
         }
+        reservationService.delete(res);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode responseNode = mapper.createObjectNode();
+        responseNode.put("code", HttpStatus.OK.toString());
+        responseNode.put("message", "Eliminazione Resrvation "+ id + " eseguita con successo");
+        return new ResponseEntity<>(responseNode, new HttpHeaders(), HttpStatus.OK);
 
-        Reservation old = reservationService.readById(id);
-        res.setUser(old.getUser());
-        res.setVehicle(old.getVehicle());
-
-
-
-
-        if(reservationService.checkUser(res)&&reservationService.checkVehicle(res)){
-           old.setDataInizio(res.getDataInizio());
-           old.setDataFine(res.getDataFine());
-            reservationService.update(old);
-
-            User attr = userService.readById(old.getUser().getId());
-            model.addAttribute("user", attr);
-            return "userDetail";
-        }else {
-            model.addAttribute("message", "veicolo non disponibile nelle date selezionate");
-            model.addAttribute("Titolo", "modifica la prenotazione");
-            model.addAttribute("newReservation", old);
-            return "insertReservation";
-        }
 
 
 
     }
-    @RequestMapping(value="/insert/{id}", method=RequestMethod.POST)
-    public String insertReservation(@PathVariable("id") int id,@Valid @ModelAttribute("newReservation") Reservation res, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "insertReservation";
+
+    @RequestMapping(value="detail/{id}", produces="application/json")
+    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") int id ) throws NotFoundException{
+        Reservation reservation = (Reservation) reservationService.readById(id);
+        if(reservation==null){
+            String error="La reservation " + id + "non è stato trovato";
+            logger.warn(error);
+            throw new NotFoundException(error);
+            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+
         }
-        Vehicle vehicle=vehicleService.readById(id);
-        res.setVehicle(vehicle);
-       // String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        //User user =  userService.readByUsername(username);
-        //res.setUser(user);
-
-
-
-        if(reservationService.checkUser(res)&&reservationService.checkVehicle(res)){
-            reservationService.create(res);
-            //User attr = userService.ReadById(res.getUser().getId());
-
-
-            model.addAttribute("user", userService.readById(res.getUser().getId()));
-            return "userDetail";
-        }else {
-            model.addAttribute("message", "veicolo non disponibile nelle date selezionate");
-            model.addAttribute("Titolo", "modifica la prenotazione");
-            model.addAttribute("newReservation", res);
-            return "insertReservation";
-        }
-
-
-    }
-    @RequestMapping(value="/readall/", method = RequestMethod.GET)
-    public String reservationReadall(Model model ){
-        List<Reservation> reservations=reservationService.readAll();
-        model.addAttribute("reservations", reservations);
-        return "reservationReadall";
-
-
-    }
-
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-    public String deleteReservation(@PathVariable("id") int id, Model model, HttpServletRequest request)
-    {
-        Reservation reservation = reservationService.readById(id);
-        reservationService.delete(reservation);
-        model.addAttribute("reservations", reservationService.readAll());
-        return "reservationReadall";
-
-
-
 
     }
 
