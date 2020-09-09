@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Service("reservationService")
 @Transactional
 public class ReservationServiceImp implements ReservationService{
+    private VehicleService vehicleService;
     @Qualifier("reservationDao")
     @Autowired
     ReservationDao reservationRepository;
@@ -117,15 +119,20 @@ public class ReservationServiceImp implements ReservationService{
 
     }
 
-    public boolean checkVehicle(Reservation res){
-        Vehicle vehicle;
-        Set<Reservation> vehicleReservations=res.getVehicle().getReservations();
-        boolean result = false;
+    public List<Vehicle> bookableVehicles(Reservation res){
+        List<Vehicle> vehicles=vehicleService.readAll();
+        List<Vehicle> bookable= new ArrayList<Vehicle>();
+        for(Vehicle v: vehicles){
 
 
 
-        result = checkReservation(res, vehicleReservations);
-        return result;
+            if(checkReservation(res, v.getReservations())){
+                bookable.add(v);
+            }
+
+        }
+        return bookable;
+
 
 
     }

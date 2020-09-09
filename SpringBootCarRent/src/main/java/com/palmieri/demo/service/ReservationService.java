@@ -15,7 +15,7 @@ public interface ReservationService {
     public List<Reservation> readByVehicle(Vehicle vehicle);
     public List<Reservation> readAll();
     public Reservation readById(int id);
-    public boolean checkVehicle(Reservation res);
+    public List<Vehicle> bookableVehicles(Reservation res);
     public boolean checkUser(Reservation res);
 
     void create(Reservation reservation);

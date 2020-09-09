@@ -63,6 +63,24 @@ public class ReservationController {
         return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
 
     }
+    @GetMapping(value ="/personal/{id}",produces = "application/json")
+    public ResponseEntity<List<Reservation>> getReservationsByUserId(@PathVariable ("id") int id){
+        logger.info("ottenendo tutte le reservations");
+        User user = userService.readById(id);
+        List<Reservation> reservations= reservationService.readByUser(user);
+        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value ="/vehicle/{id}",produces = "application/json")
+    public ResponseEntity<List<Reservation>> getReservationsByVehicleId(@PathVariable ("id") int id){
+        logger.info("ottenendo tutte le reservations");
+        Vehicle vehicle=vehicleService.readById(id);
+        List<Reservation> reservations= reservationService.readByVehicle(vehicle);
+        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+
+    }
+
 
 
 
@@ -79,6 +97,7 @@ public class ReservationController {
 
 
     }
+
 
 
     @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
@@ -101,7 +120,7 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value="detail/{id}", produces="application/json")
+    @RequestMapping(value="/detail/{id}", produces="application/json")
     public ResponseEntity<Reservation> getReservationById(@PathVariable("id") int id ) throws NotFoundException{
         Reservation reservation = (Reservation) reservationService.readById(id);
         if(reservation==null){

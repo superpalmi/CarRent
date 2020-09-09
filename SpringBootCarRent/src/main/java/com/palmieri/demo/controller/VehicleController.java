@@ -8,6 +8,7 @@ import com.palmieri.demo.entities.Vehicle;
 import com.palmieri.demo.exception.BindingException;
 import com.palmieri.demo.exception.DuplicateException;
 import com.palmieri.demo.exception.NotFoundException;
+import com.palmieri.demo.service.ReservationService;
 import com.palmieri.demo.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,8 @@ public class VehicleController {
     private static final Logger logger = LoggerFactory.getLogger(VehicleController.class);
     @Autowired
     private VehicleService vehicleService;
+    @Autowired
+    private ReservationService reservationService;
     @Autowired
     private ResourceBundleMessageSource error;
 
@@ -115,6 +118,18 @@ public class VehicleController {
         }
 
     }
+
+    @RequestMapping(value="/bookable/", method=RequestMethod.GET )
+    public ResponseEntity<List<Vehicle>> getBookableVehicles(@Valid @RequestBody Reservation res, BindingResult result) throws NotFoundException, BindingException {
+        if(result.hasErrors()){
+            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
+            logger.warn(msg);
+            throw new BindingException(msg);
+        }
+        List<Vehicle> vehicles = reservationService.bookableVehicles(res);
+        return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
+    }
+
 
 
     /*
