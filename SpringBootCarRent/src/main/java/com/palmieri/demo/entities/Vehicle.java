@@ -36,6 +36,7 @@ public class Vehicle implements Serializable {
     @NotEmpty(message = "il campo non può essere vuoto")
     @Column(name="type")
     private String type;
+    @JsonIgnore
     @OneToMany (mappedBy = "vehicle", cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Reservation> reservations = new HashSet<Reservation>();

@@ -48,7 +48,7 @@ public class User implements Serializable {
     @NotEmpty(message ="il campo role non può essere vuoto")
     @Column(name="role", nullable = true)
     private String role;
-
+    @JsonIgnore
     @OneToMany (mappedBy = "user", cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Reservation> reservations = new HashSet<Reservation>();

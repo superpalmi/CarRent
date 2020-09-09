@@ -48,7 +48,7 @@ public class UserController
 
     @GetMapping(value ="/showall",produces = "application/json")
     public ResponseEntity<List<User>> getUsers(){
-        logger.info("ottenendo tutti gli user");
+        logger.info("ottenendo tutti gli9 user");
 
         List<User> users= userService.readAll();
         return new ResponseEntity<>(users, HttpStatus.OK);

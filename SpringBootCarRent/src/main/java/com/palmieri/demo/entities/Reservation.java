@@ -22,12 +22,10 @@ public class Reservation implements Serializable {
     private Date dataInizio;
     @Column(name="datafine", nullable = false)
     @Temporal(TemporalType.DATE)
-
     private Date dataFine;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "vehicle", nullable = false)
     private Vehicle vehicle;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "user", nullable = false)
     private User user;
