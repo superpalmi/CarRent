@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 10800, allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("api/user")
 public class UserController
 
@@ -55,19 +55,6 @@ public class UserController
 
     }
     //user/insert
-    @PostMapping(value="/update")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User user, BindingResult result) throws BindingException, DuplicateException {
-        logger.info("Salvo user "+ user);
-        if(result.hasErrors()){
-            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
-            logger.warn(msg);
-            throw new BindingException(msg);
-        }
-        userService.create(user);
-        return new ResponseEntity<User>(new HttpHeaders(), HttpStatus.CREATED);
-
-    }
-
 
 
     @PostMapping(value="/insert")
@@ -95,23 +82,6 @@ public class UserController
         User user = (User) userService.readById(id);
         if(user==null){
             String error="L'username: " + id + "non è stato trovato";
-            logger.warn(error);
-            throw new NotFoundException(error);
-            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }else{
-            return new ResponseEntity<User>(user, HttpStatus.OK);
-
-        }
-
-    }
-    @RequestMapping(value="/extract/", produces = "application/json")
-    public ResponseEntity<User> getUserById(@Valid @RequestBody String userName, BindingResult result) throws
-            NotFoundException {
-
-        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = (User) userService.readByUsername(userName);
-        if(user==null){
-            String error="L'username: " + userName + "non è stato trovato";
             logger.warn(error);
             throw new NotFoundException(error);
             //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);

@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 10800, allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("api/reservation")
 public class ReservationController {
 
@@ -86,19 +86,6 @@ public class ReservationController {
 
     @PostMapping(value="/insert")
     public ResponseEntity<Reservation> insertReservation(@Valid @RequestBody Reservation reservation, BindingResult result) throws BindingException {
-        logger.info("Salvo reservation "+ reservation);
-        if(result.hasErrors()){
-            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
-            logger.warn(msg);
-            throw new BindingException(msg);
-        }
-        reservationService.create(reservation);
-        return new ResponseEntity<Reservation>(new HttpHeaders(), HttpStatus.CREATED);
-
-
-    }
-    @PostMapping(value="/update")
-    public ResponseEntity<Reservation> updateReservation(@Valid @RequestBody Reservation reservation, BindingResult result) throws BindingException {
         logger.info("Salvo reservation "+ reservation);
         if(result.hasErrors()){
             String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
