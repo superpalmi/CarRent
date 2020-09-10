@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 10800, allowedHeaders = "*")
 @RequestMapping("api/vehicle")
 public class VehicleController {
 
@@ -73,7 +73,7 @@ public class VehicleController {
     }
 
 
-    @RequestMapping(value="/insert")
+    @PostMapping(value="/insert")
     public ResponseEntity<Vehicle> insertVehicle(@Valid @RequestBody Vehicle vehicle, BindingResult result) throws BindingException, DuplicateException {
         if(result.hasErrors()){
             String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
@@ -84,6 +84,20 @@ public class VehicleController {
         return new ResponseEntity<Vehicle>(new HttpHeaders(), HttpStatus.CREATED);
 
     }
+
+
+    @PostMapping(value="/update")
+    public ResponseEntity<Vehicle> updateVehicle(@Valid @RequestBody Vehicle vehicle, BindingResult result) throws BindingException, DuplicateException {
+        if(result.hasErrors()){
+            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
+            logger.warn(msg);
+            throw new BindingException(msg);
+        }
+        vehicleService.create(vehicle);
+        return new ResponseEntity<Vehicle>(new HttpHeaders(), HttpStatus.CREATED);
+
+    }
+
     @RequestMapping(value="/detail/{id}", produces = "application/json")
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") int id) throws
             NotFoundException {
@@ -119,7 +133,7 @@ public class VehicleController {
 
     }
 
-    @RequestMapping(value="/bookable/", method=RequestMethod.GET )
+    @RequestMapping(value="/bookable/", method=RequestMethod.GET, produces="application/json" )
     public ResponseEntity<List<Vehicle>> getBookableVehicles(@Valid @RequestBody Reservation res, BindingResult result) throws NotFoundException, BindingException {
         if(result.hasErrors()){
             String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
