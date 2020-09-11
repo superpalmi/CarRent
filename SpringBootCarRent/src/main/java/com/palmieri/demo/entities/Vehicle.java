@@ -1,5 +1,6 @@
 package com.palmieri.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palmieri.demo.validation.UniquePlate;
 import org.hibernate.annotations.LazyCollection;
@@ -30,6 +31,7 @@ public class Vehicle implements Serializable {
     @Column(name="model")
     @NotEmpty(message = "il campo non può essere vuoto")
     private String model;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM")
     @Column(name="immdate")
     @Temporal(TemporalType.DATE)
     private Date immdate;

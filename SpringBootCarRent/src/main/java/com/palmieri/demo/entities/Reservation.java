@@ -15,11 +15,12 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM")
     @Column(name="datainizio", nullable = false)
     @Temporal(TemporalType.DATE)
 
     private Date dataInizio;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM" )
     @Column(name="datafine", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataFine;

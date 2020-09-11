@@ -57,7 +57,8 @@ public class VehicleController {
 
     @InitBinder
     public void bindingPreparation(WebDataBinder binder) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        logger.warn("sono il binder");
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         CustomDateEditor orderDateEditor = new CustomDateEditor(dateFormat, true);
         binder.registerCustomEditor(Date.class, orderDateEditor);
     }
@@ -119,15 +120,18 @@ public class VehicleController {
 
     }
 
-    @GetMapping(value="/bookable/", produces = "application/json")
-    public ResponseEntity<List<Vehicle>> getBookableVehicles(@Valid @RequestBody Reservation res, BindingResult result) throws NotFoundException, BindingException {
-        if(result.hasErrors()){
-            String msg = error.getMessage(result.getFieldError(), LocaleContextHolder.getLocale());
-            logger.warn(msg);
-            throw new BindingException(msg);
-        }
+    @PostMapping(value="/bookable/", produces = "application/json")
+    public ResponseEntity<List<Vehicle>> getBookableVehicles(@Valid @RequestBody Reservation res) throws NotFoundException, BindingException {
+        logger.warn("sono bookable");
         List<Vehicle> vehicles = reservationService.bookableVehicles(res);
-        return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
+        if(vehicles==null){
+            String error="I veicoli non sono stati trovati";
+            logger.warn(error);
+            throw new NotFoundException(error);
+            //return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
+        }
     }
 
 

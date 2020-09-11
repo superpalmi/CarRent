@@ -17,6 +17,7 @@ import java.util.Set;
 @Service("reservationService")
 @Transactional
 public class ReservationServiceImp implements ReservationService{
+    @Autowired
     private VehicleService vehicleService;
     @Qualifier("reservationDao")
     @Autowired
