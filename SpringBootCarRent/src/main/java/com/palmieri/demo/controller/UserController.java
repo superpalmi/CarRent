@@ -6,6 +6,7 @@ import com.palmieri.demo.entities.User;
 import com.palmieri.demo.exception.BindingException;
 import com.palmieri.demo.exception.DuplicateException;
 import com.palmieri.demo.exception.NotFoundException;
+import com.palmieri.demo.service.CustomUserDetailsService;
 import com.palmieri.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,8 @@ public class UserController
     //da utilizzare tramite le lambda
     @Autowired
     private ResourceBundleMessageSource error;
+    @Autowired
+    CustomUserDetailsService userDetailsService;
 
     /*@Autowired
     private BCryptPasswordEncoder passwordEncoder;*/
@@ -55,6 +58,15 @@ public class UserController
 
     }
     //user/insert
+
+    @PostMapping(value="/check", produces = "application/json")
+    public ResponseEntity<User> checkUser(@Valid @RequestBody String userName, @Valid @RequestBody String password, BindingResult result){
+       User user= userService.readByUsername(userName);
+       if(user.getPassword()==password){
+           userDetailsService.loadUserByUsername(userName);
+           return new ResponseEntity<>(user, HttpStatus.OK);
+       }else return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
 
 
     @PostMapping(value="/insert")
