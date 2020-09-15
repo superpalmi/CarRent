@@ -1,6 +1,6 @@
 Java HotSpot(TM) 64-Bit Server VM warning: Options -Xverify:none and -noverify were deprecated in JDK 13 and will likely be removed in a future release.
 Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2020-09-14 11:21:05.652 DEBUG 23876 --- [  restartedMain] .c.l.ClasspathLoggingApplicationListener : Application started with classpath: [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
+2020-09-15 18:43:54.431 DEBUG 22392 --- [  restartedMain] .c.l.ClasspathLoggingApplicationListener : Application started with classpath: [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -11,54 +11,57 @@ Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot lo
  :: Spring Boot ::        (v2.3.3.RELEASE)
 
 DEBUG StatusLogger org.slf4j.helpers.Log4jLoggerFactory is not on classpath. Good!
-2020-09-14 11:21:05.826  INFO 23876 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : Starting SpringBootCarRentalServiceApplication on SI-W-00446 with PID 23876 (C:\Users\SI2001\IdeaProjects\SpringBoot\CarRent\SpringBootCarRent\target\classes started by SI2001 in C:\Users\SI2001\IdeaProjects\SpringBoot\CarRent\SpringBootCarRent)
-2020-09-14 11:21:05.827  INFO 23876 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : No active profile set, falling back to default profiles: default
-2020-09-14 11:21:05.827 DEBUG 23876 --- [  restartedMain] o.s.boot.SpringApplication               : Loading source class com.palmieri.demo.SpringBootCarRentalServiceApplication
-2020-09-14 11:21:05.959 DEBUG 23876 --- [  restartedMain] o.s.b.c.c.ConfigFileApplicationListener  : Loaded config file 'file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/application.yml' (classpath:/application.yml)
-2020-09-14 11:21:05.960  INFO 23876 --- [  restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\SI2001\.m2\repository\com\mchange\c3p0\0.9.5.3\c3p0-0.9.5.3.jar referenced one or more files that do not exist: file:/C:/Users/SI2001/.m2/repository/com/mchange/c3p0/0.9.5.3/mchange-commons-java-0.2.15.jar
-2020-09-14 11:21:05.961 DEBUG 23876 --- [  restartedMain] o.s.b.devtools.restart.ChangeableUrls    : Matching URLs for reloading : [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
-2020-09-14 11:21:05.961 DEBUG 23876 --- [  restartedMain] o.s.b.d.settings.DevToolsSettings        : Included patterns for restart : []
-2020-09-14 11:21:05.961 DEBUG 23876 --- [  restartedMain] o.s.b.d.settings.DevToolsSettings        : Excluded patterns for restart : [/spring-boot-starter-[\w-]+/, /spring-boot/(bin|build|out)/, /spring-boot-starter/(bin|build|out)/, /spring-boot-devtools/(bin|build|out)/, /spring-boot-actuator/(bin|build|out)/, /spring-boot-autoconfigure/(bin|build|out)/]
-2020-09-14 11:21:05.962  INFO 23876 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2020-09-14 11:21:05.962  INFO 23876 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2020-09-14 11:21:05.962 DEBUG 23876 --- [  restartedMain] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@603f1aed
-2020-09-14 11:21:07.213  INFO 23876 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2020-09-14 11:21:07.237 DEBUG 23876 --- [  restartedMain] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.palmieri.demo'. Automatic @Repository and @Entity scanning is enabled.
-2020-09-14 11:21:07.322  INFO 23876 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98ms. Found 3 JPA repository interfaces.
-2020-09-14 11:21:08.033 DEBUG 23876 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : Code archive: C:\Users\SI2001\.m2\repository\org\springframework\boot\spring-boot\2.3.3.RELEASE\spring-boot-2.3.3.RELEASE.jar
-2020-09-14 11:21:08.034 DEBUG 23876 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : Code archive: C:\Users\SI2001\.m2\repository\org\springframework\boot\spring-boot\2.3.3.RELEASE\spring-boot-2.3.3.RELEASE.jar
-2020-09-14 11:21:08.034 DEBUG 23876 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : None of the document roots [src/main/webapp, public, static] point to a directory and will be ignored.
-2020-09-14 11:21:08.127  INFO 23876 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-09-14 11:21:08.138  INFO 23876 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-09-14 11:21:08.138  INFO 23876 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
-2020-09-14 11:21:08.299  INFO 23876 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-09-14 11:21:08.300 DEBUG 23876 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
-2020-09-14 11:21:08.300  INFO 23876 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2338 ms
-2020-09-14 11:21:08.325 DEBUG 23876 --- [  restartedMain] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: springSecurityFilterChain urls=[/*] order=-100, characterEncodingFilter urls=[/*] order=-2147483648
-2020-09-14 11:21:08.325 DEBUG 23876 --- [  restartedMain] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/]
-2020-09-14 11:21:08.360 DEBUG 23876 --- [  restartedMain] s.b.w.s.f.OrderedCharacterEncodingFilter : Filter 'characterEncodingFilter' configured for use
-2020-09-14 11:21:08.361 DEBUG 23876 --- [  restartedMain] .DelegatingFilterProxyRegistrationBean$1 : Filter 'springSecurityFilterChain' configured for use
-2020-09-14 11:21:08.481  INFO 23876 --- [  restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-09-14 11:21:08.491  INFO 23876 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-09-14 11:21:08.656  INFO 23876 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-09-14 11:21:08.717  INFO 23876 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-09-14 11:21:08.818  INFO 23876 --- [         task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.18.Final
-2020-09-14 11:21:08.948  WARN 23876 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-09-14 11:21:09.129 DEBUG 23876 --- [  restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 21 mappings in 'requestMappingHandlerMapping'
-2020-09-14 11:21:09.150  INFO 23876 --- [         task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-09-14 11:21:09.218 DEBUG 23876 --- [  restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2020-09-14 11:21:09.259 DEBUG 23876 --- [  restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2020-09-14 11:21:09.484  INFO 23876 --- [         task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2020-09-14 11:21:09.681  INFO 23876 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b3e3292, org.springframework.security.web.context.SecurityContextPersistenceFilter@f84f636, org.springframework.security.web.header.HeaderWriterFilter@2a53f0e8, org.springframework.security.web.authentication.logout.LogoutFilter@71922f8b, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7123ae44, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76ded653, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2161064d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2b6cff71, org.springframework.security.web.session.SessionManagementFilter@3f52bccb, org.springframework.security.web.access.ExceptionTranslationFilter@23de657d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5333b0e]
-2020-09-14 11:21:09.737 DEBUG 23876 --- [  restartedMain] inMXBeanRegistrar$SpringApplicationAdmin : Application Admin MBean registered with name 'org.springframework.boot:type=Admin,name=SpringApplication'
-2020-09-14 11:21:09.908 DEBUG 23876 --- [  restartedMain] o.s.b.d.livereload.LiveReloadServer      : Starting live reload server on port 35729
-2020-09-14 11:21:09.911  INFO 23876 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2020-09-14 11:21:09.989  INFO 23876 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-09-14 11:21:10.002  INFO 23876 --- [  restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2020-09-14 11:21:10.731  INFO 23876 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-09-14 11:21:10.741  INFO 23876 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-09-14 11:21:11.088  INFO 23876 --- [  restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2020-09-14 11:21:11.108 DEBUG 23876 --- [  restartedMain] ConditionEvaluationReportLoggingListener : 
+2020-09-15 18:43:54.653  INFO 22392 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : Starting SpringBootCarRentalServiceApplication on SI-W-00446 with PID 22392 (C:\Users\SI2001\IdeaProjects\SpringBoot\CarRent\SpringBootCarRent\target\classes started by SI2001 in C:\Users\SI2001\IdeaProjects\SpringBoot\CarRent\SpringBootCarRent)
+2020-09-15 18:43:54.656  INFO 22392 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : No active profile set, falling back to default profiles: default
+2020-09-15 18:43:54.657 DEBUG 22392 --- [  restartedMain] o.s.boot.SpringApplication               : Loading source class com.palmieri.demo.SpringBootCarRentalServiceApplication
+2020-09-15 18:43:54.757 DEBUG 22392 --- [  restartedMain] o.s.b.c.c.ConfigFileApplicationListener  : Loaded config file 'file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/application.yml' (classpath:/application.yml)
+2020-09-15 18:43:54.759  INFO 22392 --- [  restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\SI2001\.m2\repository\com\mchange\c3p0\0.9.5.3\c3p0-0.9.5.3.jar referenced one or more files that do not exist: file:/C:/Users/SI2001/.m2/repository/com/mchange/c3p0/0.9.5.3/mchange-commons-java-0.2.15.jar
+2020-09-15 18:43:54.759 DEBUG 22392 --- [  restartedMain] o.s.b.devtools.restart.ChangeableUrls    : Matching URLs for reloading : [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
+2020-09-15 18:43:54.760 DEBUG 22392 --- [  restartedMain] o.s.b.d.settings.DevToolsSettings        : Included patterns for restart : []
+2020-09-15 18:43:54.761 DEBUG 22392 --- [  restartedMain] o.s.b.d.settings.DevToolsSettings        : Excluded patterns for restart : [/spring-boot-starter-[\w-]+/, /spring-boot/(bin|build|out)/, /spring-boot-starter/(bin|build|out)/, /spring-boot-devtools/(bin|build|out)/, /spring-boot-actuator/(bin|build|out)/, /spring-boot-autoconfigure/(bin|build|out)/]
+2020-09-15 18:43:54.761  INFO 22392 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-09-15 18:43:54.761  INFO 22392 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-09-15 18:43:54.762 DEBUG 22392 --- [  restartedMain] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1ad67791
+2020-09-15 18:43:56.741  INFO 22392 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-09-15 18:43:56.765 DEBUG 22392 --- [  restartedMain] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.palmieri.demo'. Automatic @Repository and @Entity scanning is enabled.
+2020-09-15 18:43:56.871  INFO 22392 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119ms. Found 3 JPA repository interfaces.
+2020-09-15 18:43:57.281  INFO 22392 --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1f71390b' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-09-15 18:43:57.286  INFO 22392 --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-09-15 18:43:57.593 DEBUG 22392 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : Code archive: C:\Users\SI2001\.m2\repository\org\springframework\boot\spring-boot\2.3.3.RELEASE\spring-boot-2.3.3.RELEASE.jar
+2020-09-15 18:43:57.593 DEBUG 22392 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : Code archive: C:\Users\SI2001\.m2\repository\org\springframework\boot\spring-boot\2.3.3.RELEASE\spring-boot-2.3.3.RELEASE.jar
+2020-09-15 18:43:57.594 DEBUG 22392 --- [  restartedMain] .s.b.w.e.t.TomcatServletWebServerFactory : None of the document roots [src/main/webapp, public, static] point to a directory and will be ignored.
+2020-09-15 18:43:57.677  INFO 22392 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-09-15 18:43:57.688  INFO 22392 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-15 18:43:57.689  INFO 22392 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-09-15 18:43:57.847  INFO 22392 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-15 18:43:57.847 DEBUG 22392 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-09-15 18:43:57.847  INFO 22392 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3085 ms
+2020-09-15 18:43:57.995  WARN 22392 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-09-15 18:43:58.110  INFO 22392 --- [  restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-15 18:43:58.125  INFO 22392 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-15 18:43:58.294  INFO 22392 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-15 18:43:58.363  INFO 22392 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-09-15 18:43:58.469 DEBUG 22392 --- [  restartedMain] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: springSecurityFilterChain urls=[/*] order=-100, characterEncodingFilter urls=[/*] order=-2147483648, authTokenFilter urls=[/*] order=2147483647, authenticationJwtTokenFilter urls=[/*] order=2147483647
+2020-09-15 18:43:58.470 DEBUG 22392 --- [  restartedMain] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/]
+2020-09-15 18:43:58.500 DEBUG 22392 --- [  restartedMain] s.b.w.s.f.OrderedCharacterEncodingFilter : Filter 'characterEncodingFilter' configured for use
+2020-09-15 18:43:58.500 DEBUG 22392 --- [  restartedMain] .DelegatingFilterProxyRegistrationBean$1 : Filter 'springSecurityFilterChain' configured for use
+2020-09-15 18:43:58.510  INFO 22392 --- [         task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.18.Final
+2020-09-15 18:43:58.794 DEBUG 22392 --- [  restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 21 mappings in 'requestMappingHandlerMapping'
+2020-09-15 18:43:58.817  INFO 22392 --- [         task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-15 18:43:58.909 DEBUG 22392 --- [  restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-09-15 18:43:58.962 DEBUG 22392 --- [  restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-09-15 18:43:59.012  INFO 22392 --- [         task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2020-09-15 18:43:59.126  INFO 22392 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/api/**'], []
+2020-09-15 18:43:59.238  INFO 22392 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30e4d2e, org.springframework.security.web.context.SecurityContextPersistenceFilter@3c5b1ebf, org.springframework.security.web.header.HeaderWriterFilter@c177e7e, org.springframework.web.filter.CorsFilter@706bf186, org.springframework.security.web.authentication.logout.LogoutFilter@62895412, com.palmieri.demo.config.security.jwt.AuthTokenFilter@e112ca2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64174fd1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f12c4d9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@65443c7f, org.springframework.security.web.session.SessionManagementFilter@648a1ee4, org.springframework.security.web.access.ExceptionTranslationFilter@2b784018, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5a052273]
+2020-09-15 18:43:59.328 DEBUG 22392 --- [  restartedMain] inMXBeanRegistrar$SpringApplicationAdmin : Application Admin MBean registered with name 'org.springframework.boot:type=Admin,name=SpringApplication'
+2020-09-15 18:43:59.539 DEBUG 22392 --- [  restartedMain] o.s.b.d.livereload.LiveReloadServer      : Starting live reload server on port 35729
+2020-09-15 18:43:59.541  INFO 22392 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-09-15 18:43:59.628  INFO 22392 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-09-15 18:43:59.631  INFO 22392 --- [  restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-09-15 18:44:00.304  INFO 22392 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-15 18:44:00.315  INFO 22392 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-09-15 18:44:00.728  INFO 22392 --- [  restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-09-15 18:44:00.750 DEBUG 22392 --- [  restartedMain] ConditionEvaluationReportLoggingListener : 
 
 
 ============================
@@ -921,7 +924,7 @@ Negative matches:
 
    SpringBootWebSecurityConfiguration:
       Did not match:
-         - @ConditionalOnMissingBean (types: org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; SearchStrategy: all) found beans of type 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter' securityConfiguration (OnBeanCondition)
+         - @ConditionalOnMissingBean (types: org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; SearchStrategy: all) found beans of type 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter' securityConfig (OnBeanCondition)
       Matched:
          - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter' (OnClassCondition)
          - found 'session' scope (OnWebApplicationCondition)
@@ -944,7 +947,7 @@ Negative matches:
 
    UserDetailsServiceAutoConfiguration:
       Did not match:
-         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector; SearchStrategy: all) found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' customUserDetailsService (OnBeanCondition)
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector; SearchStrategy: all) found beans of type 'org.springframework.security.authentication.AuthenticationManager' authenticationManagerBean and found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' customUserDetailsService (OnBeanCondition)
       Matched:
          - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
 
@@ -1030,9 +1033,28 @@ Unconditional classes:
 
 
 
-2020-09-14 11:21:11.123  INFO 23876 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : Started SpringBootCarRentalServiceApplication in 6.124 seconds (JVM running for 7.927)
-2020-09-14 11:21:11.126 DEBUG 23876 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Creating new Restarter for thread Thread[main,5,main]
-2020-09-14 11:21:11.126 DEBUG 23876 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Immediately restarting application
-2020-09-14 11:21:11.126 DEBUG 23876 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@37275e01
-2020-09-14 11:21:11.126 DEBUG 23876 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Starting application com.palmieri.demo.SpringBootCarRentalServiceApplication with URLs [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
-2020-09-14 11:35:46.650  WARN 23876 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m37s877ms888µs200ns).
+2020-09-15 18:44:00.764  INFO 22392 --- [  restartedMain] .d.SpringBootCarRentalServiceApplication : Started SpringBootCarRentalServiceApplication in 7.099 seconds (JVM running for 9.273)
+2020-09-15 18:44:00.767 DEBUG 22392 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Creating new Restarter for thread Thread[main,5,main]
+2020-09-15 18:44:00.767 DEBUG 22392 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Immediately restarting application
+2020-09-15 18:44:00.767 DEBUG 22392 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@439be421
+2020-09-15 18:44:00.767 DEBUG 22392 --- [  restartedMain] o.s.boot.devtools.restart.Restarter      : Starting application com.palmieri.demo.SpringBootCarRentalServiceApplication with URLs [file:/C:/Users/SI2001/IdeaProjects/SpringBoot/CarRent/SpringBootCarRent/target/classes/]
+2020-09-15 18:44:06.587  INFO 22392 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-09-15 18:44:06.588  INFO 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-09-15 18:44:06.588 DEBUG 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-09-15 18:44:06.588 DEBUG 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected SessionLocaleResolver
+2020-09-15 18:44:06.597 DEBUG 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-09-15 18:44:06.597  INFO 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.springframework.cglib.core.ReflectUtils (file:/C:/Users/SI2001/.m2/repository/org/springframework/spring-core/5.2.8.RELEASE/spring-core-5.2.8.RELEASE.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of org.springframework.cglib.core.ReflectUtils
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2020-09-15 18:44:10.926  WARN 22392 --- [nio-8080-exec-1] c.p.d.c.security.jwt.AuthTokenFilter     : JWT Token does not begin with Bearer String
+2020-09-15 18:44:11.880  WARN 22392 --- [nio-8080-exec-1] c.p.d.c.security.jwt.AuthTokenFilter     : JWT Token does not begin with Bearer String
+2020-09-15 18:44:11.886 DEBUG 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/signin", parameters={}
+2020-09-15 18:44:11.893 DEBUG 22392 --- [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.palmieri.demo.controller.AuthController#authenticateUser(LoginRequest)
+2020-09-15 18:44:12.006 DEBUG 22392 --- [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.palmieri.demo.jwt.request.LoginRequest@43a1873f]
+2020-09-15 18:44:12.157 DEBUG 22392 --- [nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.palmieri.demo.exception.RestExceptionHandler#handleException(Exception, WebRequest)
+2020-09-15 18:44:12.167 DEBUG 22392 --- [nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : No match for [*/*], supported: []
+2020-09-15 18:44:12.168 DEBUG 22392 --- [nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.palmieri.demo.controller.AuthController.authenticateUser(com.palmieri.demo.jwt.request.LoginRequest) throws java.lang.Exception: [Field error in object 'loginRequest' on field 'userName': rejected value [null]; codes [NotBlank.loginRequest.userName,NotBlank.userName,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginRequest.userName,userName]; arguments []; default message [userName]]; default message [non deve essere spazio]] ]
+2020-09-15 18:44:12.169 DEBUG 22392 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST

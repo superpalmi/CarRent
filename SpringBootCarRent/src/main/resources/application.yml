@@ -27,3 +27,6 @@ spring:
           use_query_cache: true
           region:
             factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
+jwt:
+  secret: 1234
