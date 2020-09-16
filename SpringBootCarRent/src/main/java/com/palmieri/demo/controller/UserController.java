@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,8 +45,8 @@ public class UserController
     @Autowired
     private ResourceBundleMessageSource error;
 
-    /*@Autowired
-    private BCryptPasswordEncoder passwordEncoder;*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value ="/showall",produces = "application/json")
     public ResponseEntity<List<User>> getUsers(){
@@ -65,6 +67,7 @@ public class UserController
             logger.warn(msg);
             throw new BindingException(msg);
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.create(user);
         return new ResponseEntity<User>(new HttpHeaders(), HttpStatus.CREATED);
 

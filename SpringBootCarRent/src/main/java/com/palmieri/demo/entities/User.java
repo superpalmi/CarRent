@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Size(min=1, max=30, message = "il campo  deve essere compreso tra 1 e 30 caratteri")
     private String userName;
     @NotEmpty(message = "il campo password non può essere vuoto")
-    @Size(min=1, max=30, message = "il campo  deve essere compreso tra 1 e 30 caratteri")
+    @Size(min=1, max=100, message = "il campo  deve essere compreso tra 1 e 30 caratteri")
     @Column(name="password", nullable = false)
     private String password;
     @Column(name="email", nullable = false)

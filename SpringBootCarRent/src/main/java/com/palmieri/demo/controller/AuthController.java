@@ -54,7 +54,7 @@ public class AuthController {
 
 
 
-        return ResponseEntity.ok(new JwtResponse(token, user));
+        return ResponseEntity.ok(new JwtResponse(token,"Bearer", user));
     }
 
 
