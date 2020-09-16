@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Entity
@@ -15,14 +15,14 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name="datainizio", nullable = false)
-    @Temporal(TemporalType.DATE)
+
 
     private Date dataInizio;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM" )
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" )
     @Column(name="datafine", nullable = false)
-    @Temporal(TemporalType.DATE)
+
     private Date dataFine;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "vehicle", nullable = false)
