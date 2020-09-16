@@ -86,9 +86,8 @@ public class ReservationServiceImp implements ReservationService{
 
     public boolean checkUser(Reservation res){
 
-        User user = res.getUser();
 
-        List <Reservation> userReservations = new ArrayList<>(user.getReservations());
+        List <Reservation> userReservations =  readByUser(res.getUser());
 
         boolean result = checkReservation(res, userReservations);
         return result;
@@ -107,7 +106,7 @@ public class ReservationServiceImp implements ReservationService{
             Date dI =r.getDataInizio();
             Date dF =r.getDataFine();
 
-            if(((dataInizio.after(dI) && dataInizio.before(dF)) || (dataFine.after(dI) && dataFine.before(dF)))||((dataInizio.equals(dI))&&(dataFine.equals(dF)))){
+            if(((dataInizio.after(dI) && dataInizio.before(dF)) || (dataFine.after(dI) && dataFine.before(dF)))){
                 return result;
 
             }
@@ -121,7 +120,7 @@ public class ReservationServiceImp implements ReservationService{
     }
 
     public List<Vehicle> bookableVehicles(Reservation res){
-        List<Reservation> userReservations=  readByUser(res.getUser());
+
         List<Vehicle> vehicles=vehicleService.readAll();
         List<Vehicle> bookable= new ArrayList<Vehicle>();
         for(Vehicle v: vehicles){
