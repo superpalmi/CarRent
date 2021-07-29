@@ -1,19 +1,19 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
     datasource:
       driverClassName: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/springcarrent?zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&amp&serverTimezone=Europe/Amsterdam&amp&useSSL=FALSE
       username: user
-      password: si2001
+      password: si20012021
     jpa:
       database-platform: org.hibernate.dialect.MySQL8Dialect
       database: MYSQL
       show-sql: true
       generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       dialect: org.hibernate.dialect.MySQL8Dialect
       generate_statistics: true
       c3p0.min_size: 5
